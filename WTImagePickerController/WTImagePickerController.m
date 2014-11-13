@@ -8,12 +8,21 @@
 
 #import "WTImagePickerController.h"
 
+@interface WTImagePickerViewController : UIViewController
+
+@end;
+
+@implementation WTImagePickerViewController
+
+@end;
+
 @implementation WTImagePickerController
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-//        UIImagePickerController
+        WTImagePickerViewController *vc = [[WTImagePickerViewController alloc] init];
+        self.viewControllers = @[vc];
     }
     return self;
 }
