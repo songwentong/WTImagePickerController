@@ -7,26 +7,18 @@
 //
 
 #import "WTImagePickerController.h"
-
-@interface WTImagePickerViewController : UIViewController
-
+#import <AVFoundation/AVFoundation.h>
+#import "WTImagePickerVC.h"
+#import "SelectImageViewController.h"
+@interface WTImagePickerController() <WTImagePickerVCDelegate>
 @end;
-
-@implementation WTImagePickerViewController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-    
-}
-@end;
-
 @implementation WTImagePickerController
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        WTImagePickerViewController *vc = [[WTImagePickerViewController alloc] init];
+        WTImagePickerVC *vc = [[WTImagePickerVC alloc] init];
+        vc.delegate = self;
         self.viewControllers = @[vc];
     }
     return self;
@@ -48,4 +40,19 @@
 - (void)stopVideoCapture  NS_AVAILABLE_IOS(4_0)
 {
 }
+
+#pragma mark - WTImagePickerVCDelegate
+-(void)wtImagePickerVC:(WTImagePickerVC*)vc didPickImage:(UIImage*)image
+{
+    SelectImageViewController *a = [[SelectImageViewController alloc] init];
+//    vc.delegate = self;
+    [self.navigationController pushViewController:a animated:YES];
+}
+
+-(void)wtImagePickerVCDidCancal:(WTImagePickerVC*)vc
+{
+    [self.delegate wtimagePickerControllerDidCancel:self];
+}
+
+
 @end

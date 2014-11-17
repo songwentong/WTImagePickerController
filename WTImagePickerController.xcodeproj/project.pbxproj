@@ -15,6 +15,8 @@
 		E18A5EBB1A14813800C926E2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E18A5EB91A14813800C926E2 /* LaunchScreen.xib */; };
 		E18A5EC71A14813800C926E2 /* WTImagePickerControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E18A5EC61A14813800C926E2 /* WTImagePickerControllerTests.m */; };
 		E18A5ED21A14815700C926E2 /* WTImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E18A5ED11A14815700C926E2 /* WTImagePickerController.m */; };
+		E1C010A01A19F54B0043116B /* SelectImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C0109D1A19F54B0043116B /* SelectImageViewController.m */; };
+		E1C010A11A19F54B0043116B /* WTImagePickerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C0109F1A19F54B0043116B /* WTImagePickerVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +45,10 @@
 		E18A5EC61A14813800C926E2 /* WTImagePickerControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WTImagePickerControllerTests.m; sourceTree = "<group>"; };
 		E18A5ED01A14815700C926E2 /* WTImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTImagePickerController.h; sourceTree = "<group>"; };
 		E18A5ED11A14815700C926E2 /* WTImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTImagePickerController.m; sourceTree = "<group>"; };
+		E1C0109C1A19F54B0043116B /* SelectImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectImageViewController.h; sourceTree = "<group>"; };
+		E1C0109D1A19F54B0043116B /* SelectImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectImageViewController.m; sourceTree = "<group>"; };
+		E1C0109E1A19F54B0043116B /* WTImagePickerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTImagePickerVC.h; sourceTree = "<group>"; };
+		E1C0109F1A19F54B0043116B /* WTImagePickerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTImagePickerVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +100,10 @@
 				E18A5EAA1A14813800C926E2 /* Supporting Files */,
 				E18A5ED01A14815700C926E2 /* WTImagePickerController.h */,
 				E18A5ED11A14815700C926E2 /* WTImagePickerController.m */,
+				E1C0109C1A19F54B0043116B /* SelectImageViewController.h */,
+				E1C0109D1A19F54B0043116B /* SelectImageViewController.m */,
+				E1C0109E1A19F54B0043116B /* WTImagePickerVC.h */,
+				E1C0109F1A19F54B0043116B /* WTImagePickerVC.m */,
 			);
 			path = WTImagePickerController;
 			sourceTree = "<group>";
@@ -173,6 +183,7 @@
 				TargetAttributes = {
 					E18A5EA61A14813800C926E2 = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = 7XPY3583N7;
 					};
 					E18A5EBF1A14813800C926E2 = {
 						CreatedOnToolsVersion = 6.1;
@@ -225,7 +236,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E18A5ED21A14815700C926E2 /* WTImagePickerController.m in Sources */,
+				E1C010A11A19F54B0043116B /* WTImagePickerVC.m in Sources */,
 				E18A5EB31A14813800C926E2 /* ViewController.m in Sources */,
+				E1C010A01A19F54B0043116B /* SelectImageViewController.m in Sources */,
 				E18A5EB01A14813800C926E2 /* AppDelegate.m in Sources */,
 				E18A5EAD1A14813800C926E2 /* main.m in Sources */,
 			);
@@ -351,9 +364,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yong Gai (Z999MC999E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yong Gai (Z999MC999E)";
 				INFOPLIST_FILE = WTImagePickerController/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "d6a51747-2d66-4bf6-af0d-a072b998c356";
 			};
 			name = Debug;
 		};
@@ -361,7 +379,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = WTImagePickerController/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -420,6 +441,7 @@
 				E18A5ECC1A14813800C926E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E18A5ECD1A14813800C926E2 /* Build configuration list for PBXNativeTarget "WTImagePickerControllerTests" */ = {
 			isa = XCConfigurationList;
@@ -428,6 +450,7 @@
 				E18A5ECF1A14813800C926E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
