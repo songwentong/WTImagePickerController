@@ -132,12 +132,10 @@
          image = [self cropimageWithImage:image];
          UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
          */
-//         [_delegate wtImagePickerVC:self didPickImage:image];
+         [_delegate wtImagePickerVC:self didPickImage:image];
          
          
-         SelectImageViewController *vc = [[SelectImageViewController alloc] init];
-         vc.editImage = image;
-         [self.navigationController pushViewController:vc animated:YES];
+         
      }];
 }
 

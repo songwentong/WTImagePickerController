@@ -10,7 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "WTImagePickerVC.h"
 #import "SelectImageViewController.h"
-@interface WTImagePickerController() <WTImagePickerVCDelegate>
+@interface WTImagePickerController() <WTImagePickerVCDelegate,SelectImageViewControllerDelegate>
 @end;
 @implementation WTImagePickerController
 - (instancetype)init
@@ -44,12 +44,32 @@
 #pragma mark - WTImagePickerVCDelegate
 -(void)wtImagePickerVC:(WTImagePickerVC*)vc didPickImage:(UIImage*)image
 {
-    SelectImageViewController *a = [[SelectImageViewController alloc] init];
-//    vc.delegate = self;
-    [self.navigationController pushViewController:a animated:YES];
+
+    
+    
+    SelectImageViewController *vc2 = [[SelectImageViewController alloc] init];
+    vc2.editImage = image;
+    vc2.delegate = self;
+    [self pushViewController:vc2 animated:YES];
 }
 
 -(void)wtImagePickerVCDidCancal:(WTImagePickerVC*)vc
+{
+    [self.delegate wtimagePickerControllerDidCancel:self];
+}
+
+#pragma mark - SelectImageViewControllerDelegate
+-(void)selectImageDidSelectImage:(SelectImageViewController*)vc
+                           image:(UIImage*)image
+{
+    if (image) {
+        NSDictionary *dict = @{@"image": image};
+        [self.delegate wtimagePickerController:self
+                 didFinishPickingMediaWithInfo:dict];
+    }
+    
+}
+-(void)selectImageDidSelectImageDidCancel:(SelectImageViewController*)vc
 {
     [self.delegate wtimagePickerControllerDidCancel:self];
 }
