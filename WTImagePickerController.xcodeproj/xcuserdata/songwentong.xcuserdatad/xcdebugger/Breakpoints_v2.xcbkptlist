@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WTImagePickerController/SelectImageViewController.m"
-            timestampString = "437973409.431003"
+            timestampString = "437974433.139781"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
             landmarkName = "-currentImage"
             landmarkType = "5">
          </BreakpointContent>

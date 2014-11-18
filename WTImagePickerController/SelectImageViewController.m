@@ -37,7 +37,7 @@
 //    myScrollView.layer.borderColor = [UIColor whiteColor].CGColor;
 //    myScrollView.layer.borderWidth = 1.0;
     myScrollView.clipsToBounds = NO;
-    myScrollView.contentInset = UIEdgeInsetsMake(124, 0, 124, 0);
+//
 //    myScrollView.alwaysBounceHorizontal = NO;
 //    myScrollView.alwaysBounceVertical = NO;
     [self.view addSubview:myScrollView];
@@ -47,14 +47,20 @@
     imageViewToZoom.image = self.editImage;
     CGSize imageSize = _editImage.size;
     CGFloat heightForImageView = (imageSize.height*320)/imageSize.width;
-    imageViewToZoom.frame = CGRectMake(0, 0, 320, heightForImageView);
-    myScrollView.contentSize = CGSizeMake(320, heightForImageView);
+    imageViewToZoom.frame = CGRectMake(0, -20, 320, heightForImageView);
+    myScrollView.contentSize = CGSizeMake(320, heightForImageView-20);
+    
+    
+
+    myScrollView.contentInset = UIEdgeInsetsMake(0, 0, screenHeight-320, 0);
+    
+    
     imageViewToZoom.userInteractionEnabled = NO;
     [myScrollView addSubview:imageViewToZoom];
     
     
     
-    rectView = [[UIView alloc] initWithFrame:CGRectMake(0, 100, screenWidth, screenWidth)];
+    rectView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, screenWidth)];
     rectView.userInteractionEnabled = NO;
     rectView.backgroundColor = [UIColor clearColor];
     rectView.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -93,7 +99,7 @@
     
     
     CGFloat yTimes = _editImage.size.height/CGRectGetHeight(imageViewToZoom.frame);
-    CGFloat y = (p.y+100)*yTimes;
+    CGFloat y = (p.y+20)*yTimes;
     CGRect area = CGRectMake(x, y, width, width);
     image = [self cropImageWithImage:_editImage andArea:area];
 //    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
