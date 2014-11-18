@@ -46,7 +46,7 @@
 {
 
     
-    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+    
     SelectImageViewController *vc2 = [[SelectImageViewController alloc] init];
     vc2.editImage = image;
     vc2.delegate = self;

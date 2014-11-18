@@ -21,11 +21,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    
-    
-    self.navigationController.navigationBarHidden = YES;
-    
     CGFloat screenHeight = CGRectGetHeight([UIScreen mainScreen].bounds);
     CGFloat screenWidth = 320;
     myScrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
@@ -37,30 +32,24 @@
 //    myScrollView.layer.borderColor = [UIColor whiteColor].CGColor;
 //    myScrollView.layer.borderWidth = 1.0;
     myScrollView.clipsToBounds = NO;
-//
+    myScrollView.contentInset = UIEdgeInsetsMake(37, 0, 468-320, 0);
 //    myScrollView.alwaysBounceHorizontal = NO;
 //    myScrollView.alwaysBounceVertical = NO;
     [self.view addSubview:myScrollView];
-
+    
     
     imageViewToZoom = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
     imageViewToZoom.image = self.editImage;
     CGSize imageSize = _editImage.size;
     CGFloat heightForImageView = (imageSize.height*320)/imageSize.width;
-    imageViewToZoom.frame = CGRectMake(0, -20, 320, heightForImageView);
-    myScrollView.contentSize = CGSizeMake(320, heightForImageView-20);
-    
-    
-
-    myScrollView.contentInset = UIEdgeInsetsMake(0, 0, screenHeight-320, 0);
-    
-    
+    imageViewToZoom.frame = CGRectMake(0, 0, 320, heightForImageView);
+    myScrollView.contentSize = CGSizeMake(320, heightForImageView);
     imageViewToZoom.userInteractionEnabled = NO;
     [myScrollView addSubview:imageViewToZoom];
     
     
     
-    rectView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, screenWidth)];
+    rectView = [[UIView alloc] initWithFrame:CGRectMake(0, 100, screenWidth, screenWidth)];
     rectView.userInteractionEnabled = NO;
     rectView.backgroundColor = [UIColor clearColor];
     rectView.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -73,16 +62,6 @@
                                                             action:@selector(done)];
     
     self.navigationItem.rightBarButtonItem = item;
-    
-    
-    UIButton *commitButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [commitButton setTitle:@"确定"
-                  forState:UIControlStateNormal];
-    commitButton.frame = CGRectMake(0, 0, 320, 100);
-    [self.view addSubview:commitButton];
-    [commitButton addTarget:self
-                     action:@selector(done)
-           forControlEvents:UIControlEventTouchUpInside];
 }
 
 
@@ -99,23 +78,19 @@
     
     
     CGFloat yTimes = _editImage.size.height/CGRectGetHeight(imageViewToZoom.frame);
-    CGFloat y = (p.y+20)*yTimes;
+    CGFloat y = (p.y+100)*yTimes;
     CGRect area = CGRectMake(x, y, width, width);
     image = [self cropImageWithImage:_editImage andArea:area];
-//    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
     return image;
 }
 
 -(UIImage*)cropImageWithImage:(UIImage*)image andArea:(CGRect)area
 {
     CGImageRef returnImage = CGImageCreateWithImageInRect(image.CGImage, area);
-    UIImage *result = [UIImage imageWithCGImage:returnImage
-                                          scale:1.0
-                                    orientation:UIImageOrientationRight];
+    UIImage *result = [UIImage imageWithCGImage:returnImage scale:1.0 orientation:UIImageOrientationRight];
     CFBridgingRelease(returnImage);
     return result;
 }
-
 -(void)done
 {
     UIImage *currentImage = [self currentImage];
