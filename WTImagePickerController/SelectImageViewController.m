@@ -70,24 +70,25 @@
     UIImage *image = nil;
 //    contentOffset
     CGFloat zoomScale = myScrollView.zoomScale;
-    CGFloat xBeishu = _editImage.size.width/320;
-    CGFloat yBeishu = _editImage.size.height/568;
-    CGFloat width = 320/zoomScale*xBeishu;
+
+
+    CGFloat width = _editImage.size.width/zoomScale;
     CGPoint p = myScrollView.contentOffset;
-    CGRect area = CGRectMake((p.x)*xBeishu, (p.y+100)*yBeishu, width, width);
+    CGFloat x = _editImage.size.width*p.x/320;
+    
+    
+    CGFloat yTimes = _editImage.size.height/CGRectGetHeight(imageViewToZoom.frame);
+    CGFloat y = (p.y+100)*yTimes;
+    CGRect area = CGRectMake(x, y, width, width);
     image = [self cropImageWithImage:_editImage andArea:area];
     return image;
 }
 
 -(UIImage*)cropImageWithImage:(UIImage*)image andArea:(CGRect)area
 {
-//    CGRect area = CGRectMake(0, 0, minWidth, minWidth);
     CGImageRef returnImage = CGImageCreateWithImageInRect(image.CGImage, area);
     UIImage *result = [UIImage imageWithCGImage:returnImage scale:1.0 orientation:UIImageOrientationRight];
-    if (!result) {
-//        UIImage *newImage = [UIImage imageWithCGImage:image.CGImage scale:0.5 orientation:UIImageOrientationUp];
-//        return [self cropImageWithImage:newImage andArea:area];
-    }
+    CFBridgingRelease(returnImage);
     return result;
 }
 -(void)done
