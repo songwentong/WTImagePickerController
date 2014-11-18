@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E15DB6A81A1B20DA00CF79DC /* aaa.png in Resources */ = {isa = PBXBuildFile; fileRef = E15DB6A71A1B20DA00CF79DC /* aaa.png */; };
+		E169CB2B1A1B234B00FD03D5 /* bbb.png in Resources */ = {isa = PBXBuildFile; fileRef = E169CB2A1A1B234B00FD03D5 /* bbb.png */; };
 		E18A5EAD1A14813800C926E2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E18A5EAC1A14813800C926E2 /* main.m */; };
 		E18A5EB01A14813800C926E2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E18A5EAF1A14813800C926E2 /* AppDelegate.m */; };
 		E18A5EB31A14813800C926E2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E18A5EB21A14813800C926E2 /* ViewController.m */; };
@@ -30,6 +32,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E15DB6A71A1B20DA00CF79DC /* aaa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aaa.png; sourceTree = "<group>"; };
+		E169CB2A1A1B234B00FD03D5 /* bbb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bbb.png; sourceTree = "<group>"; };
 		E18A5EA71A14813800C926E2 /* WTImagePickerController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WTImagePickerController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E18A5EAB1A14813800C926E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E18A5EAC1A14813800C926E2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -94,6 +98,8 @@
 				E18A5EAF1A14813800C926E2 /* AppDelegate.m */,
 				E18A5EB11A14813800C926E2 /* ViewController.h */,
 				E18A5EB21A14813800C926E2 /* ViewController.m */,
+				E15DB6A71A1B20DA00CF79DC /* aaa.png */,
+				E169CB2A1A1B234B00FD03D5 /* bbb.png */,
 				E18A5EB41A14813800C926E2 /* Main.storyboard */,
 				E18A5EB71A14813800C926E2 /* Images.xcassets */,
 				E18A5EB91A14813800C926E2 /* LaunchScreen.xib */,
@@ -215,7 +221,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E169CB2B1A1B234B00FD03D5 /* bbb.png in Resources */,
 				E18A5EB61A14813800C926E2 /* Main.storyboard in Resources */,
+				E15DB6A81A1B20DA00CF79DC /* aaa.png in Resources */,
 				E18A5EBB1A14813800C926E2 /* LaunchScreen.xib in Resources */,
 				E18A5EB81A14813800C926E2 /* Images.xcassets in Resources */,
 			);

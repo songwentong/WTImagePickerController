@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "WTImagePickerController.h"
+#import "SelectImageViewController.h"
 @interface ViewController () <WTImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
     UIImageView *myImageView;
@@ -42,6 +43,13 @@
 
 -(void)showImagePicker
 {
+    
+    SelectImageViewController *vc = [[SelectImageViewController alloc] init];
+    vc.editImage = [UIImage imageNamed:@"bbb"];
+    [self presentViewController:vc animated:YES completion:nil];
+    
+    
+/*
     WTImagePickerController *vc = [[WTImagePickerController alloc] init];
     vc.delegate = self;
     [self presentViewController:vc
@@ -49,6 +57,7 @@
                      completion:^{
         
     }];
+ */
 }
 
 - (void)didReceiveMemoryWarning {

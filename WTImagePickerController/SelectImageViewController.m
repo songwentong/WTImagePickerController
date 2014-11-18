@@ -13,6 +13,9 @@
     UIScrollView *myScrollView;
     UIImageView *imageViewToZoom;
     UIView *rectView;
+    
+    
+    UIImageView *thumbImageView;
 }
 @end
 
@@ -28,11 +31,11 @@
     
     myScrollView.minimumZoomScale = 1.0;
     myScrollView.maximumZoomScale = 4.0;
-    myScrollView.backgroundColor = [UIColor redColor];
+    myScrollView.backgroundColor = [UIColor clearColor];
 //    myScrollView.layer.borderColor = [UIColor whiteColor].CGColor;
 //    myScrollView.layer.borderWidth = 1.0;
     myScrollView.clipsToBounds = NO;
-    myScrollView.contentInset = UIEdgeInsetsMake(37, 0, 468-320, 0);
+    myScrollView.contentInset = UIEdgeInsetsMake(100, 0, 468-320, 0);
 //    myScrollView.alwaysBounceHorizontal = NO;
 //    myScrollView.alwaysBounceVertical = NO;
     [self.view addSubview:myScrollView];
@@ -62,6 +65,11 @@
                                                             action:@selector(done)];
     
     self.navigationItem.rightBarButtonItem = item;
+    
+    
+    
+    thumbImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, screenHeight-150, 150, 150)];
+    [self.view addSubview:thumbImageView];
 }
 
 
@@ -69,29 +77,26 @@
 {
     UIImage *image = nil;
 //    contentOffset
-    CGFloat zoomScale = myScrollView.zoomScale;
+    
 
-
-    CGFloat width = _editImage.size.width/zoomScale;
+    CGFloat width = _editImage.size.width/(myScrollView.contentSize.width/320);
     CGPoint p = myScrollView.contentOffset;
-    CGFloat x = _editImage.size.width*p.x/320;
     
     
-    CGFloat yTimes = _editImage.size.height/CGRectGetHeight(imageViewToZoom.frame);
-    CGFloat y = (p.y+100)*yTimes;
-    CGRect area = CGRectMake(y, x, width, width);
-    image = [self cropImageWithImage:_editImage andArea:area];
+    
+    CGFloat x = (p.x*_editImage.size.width)/myScrollView.contentSize.width;
+    CGFloat y = ((p.y+100)*_editImage.size.height)/myScrollView.contentSize.height;
+    CGRect area = CGRectMake(x, y, width, width);
+    image = [self cropImageWithImage:imageViewToZoom.image andArea:area];
     return image;
 }
 
 -(UIImage*)cropImageWithImage:(UIImage*)image andArea:(CGRect)area
 {
     CGImageRef returnImage = CGImageCreateWithImageInRect(image.CGImage, area);
-    UIImage *result = [UIImage imageWithCGImage:returnImage scale:1.0 orientation:UIImageOrientationRight];
+    UIImage *result = nil;
     result = [UIImage imageWithCGImage:returnImage];
     CFBridgingRelease(returnImage);
-    result = [UIImage imageWithCGImage:result.CGImage scale:1.0 orientation:UIImageOrientationRight];
-    
     return result;
 }
 -(void)done
@@ -112,6 +117,13 @@
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
     return imageViewToZoom;
+}
+
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    UIImage *currentImage = [self currentImage];
+    thumbImageView.image = currentImage;
 }
 
 @end
