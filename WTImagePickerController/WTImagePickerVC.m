@@ -21,6 +21,12 @@
     
 //    图片输出
     AVCaptureStillImageOutput *imageOutPut;
+    
+//    拍照按钮
+    UIButton *captureButton;
+    
+//    前后摄像头切换按钮
+    UIButton *switchCameraButton;
 }
 @end
 
@@ -37,7 +43,11 @@
     
     
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    captureButton.userInteractionEnabled = YES;
+}
 -(void)configDevice
 {
     inputSession = [[AVCaptureSession alloc] init];
@@ -82,26 +92,29 @@
 -(void)configView
 {
     //拍照
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(0, 568-100, 320, 100);
-    [button setTitle:@"take photo"
+    captureButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    captureButton.frame = CGRectMake(0, 568-100, 320, 100);
+    [captureButton setTitle:@"take photo"
             forState:UIControlStateNormal];
-    [self.view addSubview:button];
-    [button addTarget:self
+    [self.view addSubview:captureButton];
+    [captureButton addTarget:self
                action:@selector(capture)
      forControlEvents:UIControlEventTouchUpInside];
     
     
     
     //前后摄像头切换
-    UIButton *switchButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    switchButton.frame = CGRectMake(320-50, 0, 50, 50);
-    switchButton.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
-    [switchButton addTarget:self
+    switchCameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    switchCameraButton.frame = CGRectMake(320-50, 0, 50, 50);
+    switchCameraButton.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
+    [switchCameraButton addTarget:self
                      action:@selector(switchBetweenDevices)
            forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:switchButton];
+    [self.view addSubview:switchCameraButton];
 }
+
+
+
 
 //拍照
 -(void)capture
@@ -127,36 +140,12 @@
          NSData * imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
          UIImage * image = [[UIImage alloc] initWithData:imageData];
          
-//         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
-         /*
-         image = [self cropimageWithImage:image];
-         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
-         */
+
          [_delegate wtImagePickerVC:self didPickImage:image];
-         
+         captureButton.userInteractionEnabled = NO;
          
          
      }];
-}
-
-
-
--(UIImage*)cropimageWithImage:(UIImage*)image
-{
-    CGSize size = [image size];
-    int minWidth = MIN(size.width, size.height);
-    CGFloat width = size.width;
-    CGFloat height = size.height;
-    CGRect area = CGRectMake(0, 0, minWidth, minWidth);
-    CGImageRef returnImage =(CGImageCreateWithImageInRect(image.CGImage, area));
-    UIImage *result = [UIImage imageWithCGImage:returnImage scale:1.0 orientation:UIImageOrientationRight];
-    
-    
-    
-
-
-
-    return result;
 }
 
 
