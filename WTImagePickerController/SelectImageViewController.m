@@ -21,6 +21,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    
+    
+    self.navigationController.navigationBarHidden = YES;
+    
     CGFloat screenHeight = CGRectGetHeight([UIScreen mainScreen].bounds);
     CGFloat screenWidth = 320;
     myScrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
@@ -32,11 +37,11 @@
 //    myScrollView.layer.borderColor = [UIColor whiteColor].CGColor;
 //    myScrollView.layer.borderWidth = 1.0;
     myScrollView.clipsToBounds = NO;
-    myScrollView.contentInset = UIEdgeInsetsMake(37, 0, 468-320, 0);
+    myScrollView.contentInset = UIEdgeInsetsMake(124, 0, 124, 0);
 //    myScrollView.alwaysBounceHorizontal = NO;
 //    myScrollView.alwaysBounceVertical = NO;
     [self.view addSubview:myScrollView];
-    
+
     
     imageViewToZoom = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
     imageViewToZoom.image = self.editImage;
@@ -62,6 +67,16 @@
                                                             action:@selector(done)];
     
     self.navigationItem.rightBarButtonItem = item;
+    
+    
+    UIButton *commitButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [commitButton setTitle:@"确定"
+                  forState:UIControlStateNormal];
+    commitButton.frame = CGRectMake(0, 0, 320, 100);
+    [self.view addSubview:commitButton];
+    [commitButton addTarget:self
+                     action:@selector(done)
+           forControlEvents:UIControlEventTouchUpInside];
 }
 
 
@@ -81,16 +96,20 @@
     CGFloat y = (p.y+100)*yTimes;
     CGRect area = CGRectMake(x, y, width, width);
     image = [self cropImageWithImage:_editImage andArea:area];
+//    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
     return image;
 }
 
 -(UIImage*)cropImageWithImage:(UIImage*)image andArea:(CGRect)area
 {
     CGImageRef returnImage = CGImageCreateWithImageInRect(image.CGImage, area);
-    UIImage *result = [UIImage imageWithCGImage:returnImage scale:1.0 orientation:UIImageOrientationRight];
+    UIImage *result = [UIImage imageWithCGImage:returnImage
+                                          scale:1.0
+                                    orientation:UIImageOrientationRight];
     CFBridgingRelease(returnImage);
     return result;
 }
+
 -(void)done
 {
     UIImage *currentImage = [self currentImage];
