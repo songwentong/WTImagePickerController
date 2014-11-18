@@ -43,13 +43,13 @@
 
 -(void)showImagePicker
 {
-    
+    /*
     SelectImageViewController *vc = [[SelectImageViewController alloc] init];
     vc.editImage = [UIImage imageNamed:@"bbb"];
     [self presentViewController:vc animated:YES completion:nil];
     
     
-/*
+ */
     WTImagePickerController *vc = [[WTImagePickerController alloc] init];
     vc.delegate = self;
     [self presentViewController:vc
@@ -57,7 +57,7 @@
                      completion:^{
         
     }];
- */
+
 }
 
 - (void)didReceiveMemoryWarning {

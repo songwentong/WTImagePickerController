@@ -21,6 +21,8 @@
 
 @implementation SelectImageViewController
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -42,8 +44,9 @@
     
     
     imageViewToZoom = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
-    imageViewToZoom.image = self.editImage;
+    imageViewToZoom.image = _editImage;
     CGSize imageSize = _editImage.size;
+
     CGFloat heightForImageView = (imageSize.height*320)/imageSize.width;
     imageViewToZoom.frame = CGRectMake(0, 0, 320, heightForImageView);
     myScrollView.contentSize = CGSizeMake(320, heightForImageView);
@@ -70,6 +73,8 @@
     
     thumbImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, screenHeight-150, 150, 150)];
     [self.view addSubview:thumbImageView];
+    
+
 }
 
 
@@ -95,7 +100,7 @@
 {
     CGImageRef returnImage = CGImageCreateWithImageInRect(image.CGImage, area);
     UIImage *result = nil;
-    result = [UIImage imageWithCGImage:returnImage];
+    result = [UIImage imageWithCGImage:returnImage scale:1.0 orientation:image.imageOrientation];
     CFBridgingRelease(returnImage);
     return result;
 }

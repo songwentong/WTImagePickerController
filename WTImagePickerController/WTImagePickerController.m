@@ -48,7 +48,8 @@
     
     
     SelectImageViewController *vc2 = [[SelectImageViewController alloc] init];
-    vc2.editImage = image;
+    UIImage *image2 = [UIImage imageWithCGImage:image.CGImage scale:1.0 orientation:UIImageOrientationRight];
+    vc2.editImage = image2;
     vc2.delegate = self;
     [self pushViewController:vc2 animated:YES];
 }
