@@ -79,7 +79,7 @@
     
     CGFloat yTimes = _editImage.size.height/CGRectGetHeight(imageViewToZoom.frame);
     CGFloat y = (p.y+100)*yTimes;
-    CGRect area = CGRectMake(x, y, width, width);
+    CGRect area = CGRectMake(y, x, width, width);
     image = [self cropImageWithImage:_editImage andArea:area];
     return image;
 }
@@ -88,7 +88,10 @@
 {
     CGImageRef returnImage = CGImageCreateWithImageInRect(image.CGImage, area);
     UIImage *result = [UIImage imageWithCGImage:returnImage scale:1.0 orientation:UIImageOrientationRight];
+    result = [UIImage imageWithCGImage:returnImage];
     CFBridgingRelease(returnImage);
+    result = [UIImage imageWithCGImage:result.CGImage scale:1.0 orientation:UIImageOrientationRight];
+    
     return result;
 }
 -(void)done
