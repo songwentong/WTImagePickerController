@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E15DB6A81A1B20DA00CF79DC /* aaa.png in Resources */ = {isa = PBXBuildFile; fileRef = E15DB6A71A1B20DA00CF79DC /* aaa.png */; };
 		E169CB2B1A1B234B00FD03D5 /* bbb.png in Resources */ = {isa = PBXBuildFile; fileRef = E169CB2A1A1B234B00FD03D5 /* bbb.png */; };
+		E169CB341A1B332800FD03D5 /* UIImage+Rotate.m in Sources */ = {isa = PBXBuildFile; fileRef = E169CB331A1B332800FD03D5 /* UIImage+Rotate.m */; };
 		E18A5EAD1A14813800C926E2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E18A5EAC1A14813800C926E2 /* main.m */; };
 		E18A5EB01A14813800C926E2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E18A5EAF1A14813800C926E2 /* AppDelegate.m */; };
 		E18A5EB31A14813800C926E2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E18A5EB21A14813800C926E2 /* ViewController.m */; };
@@ -34,6 +35,8 @@
 /* Begin PBXFileReference section */
 		E15DB6A71A1B20DA00CF79DC /* aaa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aaa.png; sourceTree = "<group>"; };
 		E169CB2A1A1B234B00FD03D5 /* bbb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bbb.png; sourceTree = "<group>"; };
+		E169CB331A1B332800FD03D5 /* UIImage+Rotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Rotate.m"; sourceTree = "<group>"; };
+		E169CB351A1B334C00FD03D5 /* UIImage+Rotate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Rotate.h"; sourceTree = "<group>"; };
 		E18A5EA71A14813800C926E2 /* WTImagePickerController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WTImagePickerController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E18A5EAB1A14813800C926E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E18A5EAC1A14813800C926E2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -110,6 +113,8 @@
 				E1C0109D1A19F54B0043116B /* SelectImageViewController.m */,
 				E1C0109E1A19F54B0043116B /* WTImagePickerVC.h */,
 				E1C0109F1A19F54B0043116B /* WTImagePickerVC.m */,
+				E169CB351A1B334C00FD03D5 /* UIImage+Rotate.h */,
+				E169CB331A1B332800FD03D5 /* UIImage+Rotate.m */,
 			);
 			path = WTImagePickerController;
 			sourceTree = "<group>";
@@ -248,6 +253,7 @@
 				E18A5EB31A14813800C926E2 /* ViewController.m in Sources */,
 				E1C010A01A19F54B0043116B /* SelectImageViewController.m in Sources */,
 				E18A5EB01A14813800C926E2 /* AppDelegate.m in Sources */,
+				E169CB341A1B332800FD03D5 /* UIImage+Rotate.m in Sources */,
 				E18A5EAD1A14813800C926E2 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "WTImagePickerVC.h"
 #import "SelectImageViewController.h"
+#import "UIImage+Rotate.h"
 @interface WTImagePickerController() <WTImagePickerVCDelegate,SelectImageViewControllerDelegate>
 @end;
 @implementation WTImagePickerController
@@ -48,8 +49,9 @@
     
     
     SelectImageViewController *vc2 = [[SelectImageViewController alloc] init];
-    UIImage *image2 = [UIImage imageWithCGImage:image.CGImage scale:1.0 orientation:UIImageOrientationRight];
-    vc2.editImage = image2;
+//    UIImage *image2 = [UIImage imageWithCGImage:image.CGImage scale:1.0 orientation:UIImageOrientationRight];
+    
+    vc2.editImage = [UIImage rotateImage:image];
     vc2.delegate = self;
     [self pushViewController:vc2 animated:YES];
 }
