@@ -18,6 +18,8 @@
     UIImageView *thumbImageView;
 }
 @end
+
+//屏幕宽度
 static CGFloat screenWidth;
 @implementation SelectImageViewController
 
@@ -36,11 +38,11 @@ static CGFloat screenWidth;
     
     myScrollView.minimumZoomScale = 1.0;
     myScrollView.maximumZoomScale = 4.0;
-    myScrollView.backgroundColor = [UIColor clearColor];
+    myScrollView.backgroundColor = [UIColor redColor];
 //    myScrollView.layer.borderColor = [UIColor whiteColor].CGColor;
 //    myScrollView.layer.borderWidth = 1.0;
     myScrollView.clipsToBounds = NO;
-    myScrollView.contentInset = UIEdgeInsetsMake(100, 0, 468-screenWidth, 0);
+    myScrollView.contentInset = UIEdgeInsetsMake(100, 0, screenHeight-screenWidth-100, 0);
 //    myScrollView.alwaysBounceHorizontal = NO;
 //    myScrollView.alwaysBounceVertical = NO;
     [self.view addSubview:myScrollView];
@@ -50,9 +52,9 @@ static CGFloat screenWidth;
     imageViewToZoom.image = _editImage;
     CGSize imageSize = _editImage.size;
 
-    CGFloat heightForImageView = (imageSize.height*screenHeight)/imageSize.width;
-    imageViewToZoom.frame = CGRectMake(0, -64, screenHeight, heightForImageView);
-    myScrollView.contentSize = CGSizeMake(screenHeight, heightForImageView+64);
+    CGFloat heightForImageView = (imageSize.height*screenWidth)/imageSize.width;
+    imageViewToZoom.frame = CGRectMake(0, -64, screenWidth, heightForImageView);
+    myScrollView.contentSize = CGSizeMake(screenWidth, heightForImageView+64);
     imageViewToZoom.userInteractionEnabled = NO;
     [myScrollView addSubview:imageViewToZoom];
     
