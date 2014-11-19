@@ -87,7 +87,7 @@ static CGFloat screenWidth;
     
     previewBGView = [[UIView alloc] initWithFrame:self.view.bounds];
     captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:inputSession];
-    captureVideoPreviewLayer.frame = CGRectMake(0, 138/2, screenWidth, screenWidth);
+    captureVideoPreviewLayer.frame = CGRectMake(0, 130/2, screenWidth, screenHeight-138/2-70);
     captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResize;
 
     [previewBGView.layer addSublayer:captureVideoPreviewLayer];
