@@ -12,6 +12,8 @@
 @interface ViewController () <WTImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
     UIImageView *myImageView;
+    
+    CGFloat screenHeight;
 }
 @end
 
@@ -20,6 +22,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    screenHeight = [UIScreen mainScreen].bounds.size.width;
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     //    button.frame = CGRectMake(0, 0, 200, 100);
@@ -34,7 +38,7 @@
     [self.view addSubview:button];
     
     
-    myImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 100, 320, 320)];
+    myImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 100, screenHeight, screenHeight)];
     [self.view addSubview:myImageView];
     myImageView.clipsToBounds = YES;
     myImageView.contentMode = UIViewContentModeScaleAspectFill;

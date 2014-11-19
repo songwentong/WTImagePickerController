@@ -145,7 +145,9 @@ static CGFloat screenHeight;
 //    contentOffset
     
 
-    CGFloat width = _editImage.size.width/(myScrollView.contentSize.width/320);
+    
+    CGFloat mutiple = myScrollView.contentSize.width/screenWidth;
+    CGFloat width = _editImage.size.width/mutiple;
     CGPoint p = myScrollView.contentOffset;
     
     
@@ -192,8 +194,10 @@ static CGFloat screenHeight;
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
+    /*
     UIImage *currentImage = [self currentImage];
     thumbImageView.image = currentImage;
+     */
 }
 
 @end
