@@ -171,11 +171,13 @@ static CGFloat screenWidth;
         if (i==1) {
             [flashModeButton setTitleColor:[self colorWithFlash:YES]
                                   forState:UIControlStateNormal];
+            flashModeButton.hidden = YES;
         }
         
         if (i==2) {
             [flashModeButton setTitleColor:[self colorWithFlash:NO]
                                   forState:UIControlStateNormal];
+            flashModeButton.hidden = YES;
         }
     }
     
@@ -211,7 +213,8 @@ static CGFloat screenWidth;
     UIButton *button0 = flashModeButtons[0];
     UIButton *button1 = flashModeButtons[1];
     UIButton *button2 = flashModeButtons[2];
-    
+    NSArray *flashModeTitles = @[@"自动",@"打开",@"关闭"];
+    [button0 setTitle:flashModeTitles[index] forState:UIControlStateNormal];
     switch (index) {
         case 0:
         {
@@ -235,6 +238,7 @@ static CGFloat screenWidth;
             if (flag) {
             [device setFlashMode:AVCaptureFlashModeOn];
             }
+            
 
         }
             break;
@@ -270,8 +274,8 @@ static CGFloat screenWidth;
 //拍照
 -(void)capture
 {
-    NSLog(@"capture");
-    
+
+    captureButton.userInteractionEnabled = NO;
     AVCaptureConnection *videoConnection = nil;
     for (AVCaptureConnection *connection in imageOutPut.connections) {
         for (AVCaptureInputPort *port in [connection inputPorts]) {
@@ -293,7 +297,7 @@ static CGFloat screenWidth;
          
 
          [_delegate wtImagePickerVC:self didPickImage:image];
-         captureButton.userInteractionEnabled = NO;
+         
          
          
      }];
@@ -305,7 +309,7 @@ static CGFloat screenWidth;
 
     __block AVCaptureDeviceInput *input = nil;
     [[AVCaptureDevice devices] enumerateObjectsUsingBlock:^(AVCaptureDevice *device, NSUInteger idx, BOOL *stop) {
-//        NSLog(@"%@",obj);
+
         if (device.position == position) {
             input = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
         }

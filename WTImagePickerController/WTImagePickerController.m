@@ -56,7 +56,7 @@
     vc2.editImage = image2;
     
     vc2.delegate = self;
-    [self pushViewController:vc2 animated:YES];
+    [self pushViewController:vc2 animated:NO];
 }
 
 -(void)wtImagePickerVCDidCancal:(WTImagePickerVC*)vc
