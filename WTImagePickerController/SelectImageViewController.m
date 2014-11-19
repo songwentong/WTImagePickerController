@@ -13,25 +13,32 @@
     UIScrollView *myScrollView;
     UIImageView *imageViewToZoom;
     UIView *rectView;
-    
-    
     UIImageView *thumbImageView;
+    
+//    取消按钮
+    UIButton *cancelButton;
 }
 @end
 
 //屏幕宽度
 static CGFloat screenWidth;
+static CGFloat screenHeight;
 @implementation SelectImageViewController
 
-
+-(BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+//    self.navigationController.navigationBarHidden = YES;
+    
     
     
     // Do any additional setup after loading the view.
-    CGFloat screenHeight = CGRectGetHeight([UIScreen mainScreen].bounds);
+    screenHeight = CGRectGetHeight([UIScreen mainScreen].bounds);
     screenWidth = CGRectGetWidth([UIScreen mainScreen].bounds);
     myScrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     myScrollView.delegate = self;
@@ -42,8 +49,8 @@ static CGFloat screenWidth;
 //    myScrollView.layer.borderColor = [UIColor whiteColor].CGColor;
 //    myScrollView.layer.borderWidth = 1.0;
     myScrollView.clipsToBounds = NO;
-    CGFloat topInset = 37;
-    myScrollView.contentInset = UIEdgeInsetsMake(topInset, 0, screenHeight-screenWidth-topInset-64, 0);
+    CGFloat topInset = 100;
+    myScrollView.contentInset = UIEdgeInsetsMake(topInset, 0, screenHeight-screenWidth-topInset, 0);
 //    myScrollView.alwaysBounceHorizontal = NO;
 //    myScrollView.alwaysBounceVertical = NO;
     [self.view addSubview:myScrollView];
@@ -69,19 +76,32 @@ static CGFloat screenWidth;
     rectView.layer.borderWidth = 1.0;
     [self.view addSubview:rectView];
 
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"确定"
-                                                             style:UIBarButtonItemStyleDone
-                                                            target:self
-                                                            action:@selector(done)];
-    
-    self.navigationItem.rightBarButtonItem = item;
+
     
     
     
     thumbImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, screenHeight-150, 150, 150)];
+    thumbImageView.hidden = YES;
     [self.view addSubview:thumbImageView];
     
+    [self configView];
+    
+}
 
+-(void)configView
+{
+    cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    cancelButton.frame = CGRectMake(0, screenHeight-60, 100, 60);
+    [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
+    [self.view addSubview:cancelButton];
+    [cancelButton addTarget:self
+                     action:@selector(pop)
+           forControlEvents:UIControlEventTouchUpInside];
+}
+
+-(void)pop
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

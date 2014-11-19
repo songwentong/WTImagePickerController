@@ -109,10 +109,10 @@
 				E18A5EAA1A14813800C926E2 /* Supporting Files */,
 				E18A5ED01A14815700C926E2 /* WTImagePickerController.h */,
 				E18A5ED11A14815700C926E2 /* WTImagePickerController.m */,
-				E1C0109C1A19F54B0043116B /* SelectImageViewController.h */,
-				E1C0109D1A19F54B0043116B /* SelectImageViewController.m */,
 				E1C0109E1A19F54B0043116B /* WTImagePickerVC.h */,
 				E1C0109F1A19F54B0043116B /* WTImagePickerVC.m */,
+				E1C0109C1A19F54B0043116B /* SelectImageViewController.h */,
+				E1C0109D1A19F54B0043116B /* SelectImageViewController.m */,
 				E169CB351A1B334C00FD03D5 /* UIImage+Rotate.h */,
 				E169CB331A1B332800FD03D5 /* UIImage+Rotate.m */,
 			);

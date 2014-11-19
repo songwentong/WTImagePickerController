@@ -21,6 +21,7 @@
         WTImagePickerVC *vc = [[WTImagePickerVC alloc] init];
         vc.delegate = self;
         self.viewControllers = @[vc];
+        self.navigationBarHidden = YES;
     }
     return self;
 }

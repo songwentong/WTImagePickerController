@@ -15,6 +15,7 @@
     AVCaptureSession *inputSession;
 //    查看layer
     AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
+    UIView *previewBGView;
     
 //    视频输入
     AVCaptureDeviceInput * deviceInput;
@@ -27,16 +28,27 @@
     
 //    前后摄像头切换按钮
     UIButton *switchCameraButton;
+    
+    
+    
+//    取消按钮
+    UIButton *cancelButton;
+    
+    
+//    屏幕高度
+    CGFloat screenHeight;
 }
 @end
 
 @implementation WTImagePickerVC
-
+static CGFloat screenWidth;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     screenWidth = CGRectGetWidth([UIScreen mainScreen].bounds);
+    screenHeight = CGRectGetHeight([UIScreen mainScreen].bounds);
+    
     [self configDevice];
     [self configView];
     
@@ -54,8 +66,8 @@
     // Add inputs and outputs.
     [inputSession startRunning];
     
-    if ([inputSession canSetSessionPreset:AVCaptureSessionPreset640x480]) {
-        [inputSession setSessionPreset:AVCaptureSessionPreset640x480];
+    if ([inputSession canSetSessionPreset:AVCaptureSessionPresetPhoto]) {
+        [inputSession setSessionPreset:AVCaptureSessionPresetPhoto];
     }
     
     
@@ -73,13 +85,13 @@
     [inputSession commitConfiguration];
     
     
-    CALayer *viewLayer = self.view.layer;
+    previewBGView = [[UIView alloc] initWithFrame:self.view.bounds];
     captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:inputSession];
     captureVideoPreviewLayer.frame = CGRectMake(0, 138/2, screenWidth, screenWidth);
     captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResize;
 
-    [viewLayer addSublayer:captureVideoPreviewLayer];
-    
+    [previewBGView.layer addSublayer:captureVideoPreviewLayer];
+    [self.view addSubview:previewBGView];
     
     imageOutPut = [[AVCaptureStillImageOutput alloc] init];
     NSDictionary *outputSettings = @{ AVVideoCodecKey : AVVideoCodecJPEG};
@@ -88,17 +100,27 @@
     [inputSession addOutput:imageOutPut];
     [inputSession commitConfiguration];
 }
-static CGFloat screenWidth;
+
 -(void)configView
 {
-    
-    
+    cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
+    cancelButton.frame = CGRectMake(0, screenHeight-60, 100, 60);
+    [self.view addSubview:cancelButton];
+    [cancelButton addTarget:self
+                     action:@selector(cancelPressed)
+           forControlEvents:UIControlEventTouchUpInside];
     
     //拍照
     captureButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    captureButton.frame = CGRectMake(0, 568-100, screenWidth, 100);
+    captureButton.frame = CGRectMake((screenWidth-62)/2, screenHeight-72, 62, 62);
+    [captureButton setImage:[UIImage imageNamed:@"capture"]
+                   forState:UIControlStateNormal];
+    
+    /*
     [captureButton setTitle:@"take photo"
-            forState:UIControlStateNormal];
+                   forState:UIControlStateNormal];
+     */
     [self.view addSubview:captureButton];
     [captureButton addTarget:self
                action:@selector(capture)
@@ -109,14 +131,23 @@ static CGFloat screenWidth;
     //前后摄像头切换
     switchCameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
     switchCameraButton.frame = CGRectMake(screenWidth-50, 0, 50, 50);
-    switchCameraButton.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
+//    switchCameraButton.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
+    [switchCameraButton setImage:[UIImage imageNamed:@"SwitchCamera"] forState:UIControlStateNormal];
     [switchCameraButton addTarget:self
                      action:@selector(switchBetweenDevices)
            forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:switchCameraButton];
+    /*
+    UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:switchCameraButton];
+    self.navigationItem.rightBarButtonItem = rightBarButtonItem;
+     */
+    
 }
 
-
+-(void)cancelPressed
+{
+    [_delegate wtImagePickerVCDidCancal:self];
+}
 
 
 //拍照
@@ -154,8 +185,7 @@ static CGFloat screenWidth;
 
 -(AVCaptureDeviceInput*)inputWithPosition:(AVCaptureDevicePosition)position
 {
-//    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-//    device.position = position;
+
     __block AVCaptureDeviceInput *input = nil;
     [[AVCaptureDevice devices] enumerateObjectsUsingBlock:^(AVCaptureDevice *device, NSUInteger idx, BOOL *stop) {
 //        NSLog(@"%@",obj);
@@ -167,10 +197,15 @@ static CGFloat screenWidth;
     return input;
 }
 
+-(BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 -(void)switchBetweenDevices
 {
-    AVCaptureSession *session = inputSession;
     
+    AVCaptureSession *session = inputSession;
     AVCaptureDeviceInput *input = [session.inputs lastObject];
     AVCaptureDevice *device = input.device;
     AVCaptureDevicePosition position = device.position;
