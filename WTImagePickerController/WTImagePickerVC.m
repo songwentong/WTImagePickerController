@@ -37,6 +37,9 @@
     
 //    屏幕高度
     CGFloat screenHeight;
+    
+//    闪光灯效果
+    NSMutableArray *flashModeButtons;
 }
 @end
 
@@ -48,6 +51,8 @@ static CGFloat screenWidth;
     
     screenWidth = CGRectGetWidth([UIScreen mainScreen].bounds);
     screenHeight = CGRectGetHeight([UIScreen mainScreen].bounds);
+    
+    flashModeButtons = [[NSMutableArray alloc] init];
     
     [self configDevice];
     [self configView];
@@ -79,6 +84,7 @@ static CGFloat screenWidth;
     //    NSArray *devices = [AVCaptureDevice devices];
     
     AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+//    AVCaptureFlashMode *flashMode = device.flashMode;
     deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
     [inputSession beginConfiguration];
     [inputSession addInput:deviceInput];
@@ -137,11 +143,122 @@ static CGFloat screenWidth;
                      action:@selector(switchBetweenDevices)
            forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:switchCameraButton];
-    /*
-    UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:switchCameraButton];
-    self.navigationItem.rightBarButtonItem = rightBarButtonItem;
-     */
+
     
+    
+    NSArray *flashModeTitles = @[@"自动",@"打开",@"关闭"];
+    for (int i=0; i<3; i++) {
+        UIButton *flashModeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [flashModeButton setTitle:flashModeTitles[i]
+                         forState:UIControlStateNormal];
+        CGFloat buttonWidth = 80;
+        flashModeButton.frame = CGRectMake(i*buttonWidth, 0, buttonWidth, 40);
+        [flashModeButton addTarget:self
+                            action:@selector(flashModeButtonPressed:)
+                  forControlEvents:UIControlEventTouchUpInside];
+        [flashModeButtons addObject:flashModeButton];
+        [self.view addSubview:flashModeButton];
+        
+        
+        if (i==0) {
+            AVCaptureSession *session = inputSession;
+            AVCaptureDeviceInput *input = [session.inputs lastObject];
+            AVCaptureDevice *device = input.device;
+
+            [flashModeButton setTitleColor:[self colorWithFlash:device.flashActive] forState:UIControlStateNormal];
+        }
+        
+        if (i==1) {
+            [flashModeButton setTitleColor:[self colorWithFlash:YES]
+                                  forState:UIControlStateNormal];
+        }
+        
+        if (i==2) {
+            [flashModeButton setTitleColor:[self colorWithFlash:NO]
+                                  forState:UIControlStateNormal];
+        }
+    }
+    
+}
+
+
+
+-(UIColor*)colorWithFlash:(BOOL)flag
+{
+    UIColor *color = nil;
+    if (flag) {
+//        254,203,247
+//        开闪光灯
+        color = [UIColor colorWithRed:254/255.0 green:195/255.0 blue:10/255.0 alpha:1.0];
+    }else
+    {
+//        未开闪光灯
+        color = [UIColor whiteColor];
+    }
+    return color;
+}
+
+-(void)flashModeButtonPressed:(UIButton*)sender
+{
+    AVCaptureSession *session = inputSession;
+    AVCaptureDeviceInput *input = [session.inputs lastObject];
+    AVCaptureDevice *device = input.device;
+//    AVCaptureFlashMode flashMode = device.flashMode;
+    
+    NSInteger index = [flashModeButtons indexOfObject:sender];
+    
+    
+    UIButton *button0 = flashModeButtons[0];
+    UIButton *button1 = flashModeButtons[1];
+    UIButton *button2 = flashModeButtons[2];
+    
+    switch (index) {
+        case 0:
+        {
+            if (!button1.hidden) {
+                BOOL flag = [device lockForConfiguration:nil];
+                if (flag) {
+                [device setFlashMode:AVCaptureFlashModeAuto];
+                }
+                
+            }
+            button1.hidden = !button1.hidden;
+            button2.hidden = !button2.hidden;
+
+        }
+            break;
+        case 1:
+        {
+            button1.hidden = YES;
+            button2.hidden = YES;
+            BOOL flag = [device lockForConfiguration:nil];
+            if (flag) {
+            [device setFlashMode:AVCaptureFlashModeOn];
+            }
+
+        }
+            break;
+        case 2:
+        {
+            button1.hidden = YES;
+            button2.hidden = YES;
+            BOOL flag = [device lockForConfiguration:nil];
+            if (flag) {
+            [device setFlashMode:AVCaptureFlashModeOff];
+            }
+            
+        }
+            break;
+    }
+    
+    if (device.flashActive) {
+        [button0 setTitleColor:[self colorWithFlash:YES]
+                      forState:UIControlStateNormal];
+    }else
+    {
+        [button0 setTitleColor:[self colorWithFlash:NO]
+                      forState:UIControlStateNormal];
+    }
 }
 
 -(void)cancelPressed
