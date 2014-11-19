@@ -54,8 +54,8 @@
     // Add inputs and outputs.
     [inputSession startRunning];
     
-    if ([inputSession canSetSessionPreset:AVCaptureSessionPresetPhoto]) {
-        [inputSession setSessionPreset:AVCaptureSessionPresetPhoto];
+    if ([inputSession canSetSessionPreset:AVCaptureSessionPreset640x480]) {
+        [inputSession setSessionPreset:AVCaptureSessionPreset640x480];
     }
     
     

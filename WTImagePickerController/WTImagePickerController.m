@@ -50,16 +50,25 @@
     
     SelectImageViewController *vc2 = [[SelectImageViewController alloc] init];
 //    UIImage *image2 = [UIImage imageWithCGImage:image.CGImage scale:1.0 orientation:UIImageOrientationRight];
+    UIImage *image2 = [UIImage rotateImage:image];
+    vc2.editImage = image2;
     
-    vc2.editImage = [UIImage rotateImage:image];
-//    UIImageWriteToSavedPhotosAlbum(vc2.editImage, nil, nil, nil);
     vc2.delegate = self;
     [self pushViewController:vc2 animated:YES];
 }
 
--(void)cropImage
+-(UIImage*)cropImage:(UIImage*)image
 {
+    UIImage *result = nil;
+    CGRect area = CGRectMake(0, 64, image.size.width, image.size.height-64);
+    CGImageRef returnImage = CGImageCreateWithImageInRect(image.CGImage, area);
+    result = [UIImage imageWithCGImage:returnImage scale:1.0 orientation:image.imageOrientation];
+    CFBridgingRelease(returnImage);
     
+    
+    
+    
+    return result;
 }
 
 -(void)wtImagePickerVCDidCancal:(WTImagePickerVC*)vc
