@@ -18,16 +18,19 @@
     UIImageView *thumbImageView;
 }
 @end
-
+static CGFloat screenWidth;
 @implementation SelectImageViewController
 
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    
     // Do any additional setup after loading the view.
     CGFloat screenHeight = CGRectGetHeight([UIScreen mainScreen].bounds);
-    CGFloat screenWidth = 320;
+    screenWidth = CGRectGetWidth([UIScreen mainScreen].bounds);
     myScrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     myScrollView.delegate = self;
     
@@ -37,7 +40,7 @@
 //    myScrollView.layer.borderColor = [UIColor whiteColor].CGColor;
 //    myScrollView.layer.borderWidth = 1.0;
     myScrollView.clipsToBounds = NO;
-    myScrollView.contentInset = UIEdgeInsetsMake(100, 0, 468-320, 0);
+    myScrollView.contentInset = UIEdgeInsetsMake(100, 0, 468-screenWidth, 0);
 //    myScrollView.alwaysBounceHorizontal = NO;
 //    myScrollView.alwaysBounceVertical = NO;
     [self.view addSubview:myScrollView];
@@ -47,9 +50,9 @@
     imageViewToZoom.image = _editImage;
     CGSize imageSize = _editImage.size;
 
-    CGFloat heightForImageView = (imageSize.height*320)/imageSize.width;
-    imageViewToZoom.frame = CGRectMake(0, 0, 320, heightForImageView);
-    myScrollView.contentSize = CGSizeMake(320, heightForImageView);
+    CGFloat heightForImageView = (imageSize.height*screenHeight)/imageSize.width;
+    imageViewToZoom.frame = CGRectMake(0, -64, screenHeight, heightForImageView);
+    myScrollView.contentSize = CGSizeMake(screenHeight, heightForImageView+64);
     imageViewToZoom.userInteractionEnabled = NO;
     [myScrollView addSubview:imageViewToZoom];
     
@@ -90,7 +93,7 @@
     
     
     CGFloat x = (p.x*_editImage.size.width)/myScrollView.contentSize.width;
-    CGFloat y = ((p.y+100)*_editImage.size.height)/myScrollView.contentSize.height;
+    CGFloat y = ((p.y+64+100)*_editImage.size.height)/myScrollView.contentSize.height;
     CGRect area = CGRectMake(x, y, width, width);
     image = [self cropImageWithImage:imageViewToZoom.image andArea:area];
     return image;

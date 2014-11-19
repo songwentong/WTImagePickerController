@@ -52,8 +52,14 @@
 //    UIImage *image2 = [UIImage imageWithCGImage:image.CGImage scale:1.0 orientation:UIImageOrientationRight];
     
     vc2.editImage = [UIImage rotateImage:image];
+//    UIImageWriteToSavedPhotosAlbum(vc2.editImage, nil, nil, nil);
     vc2.delegate = self;
     [self pushViewController:vc2 animated:YES];
+}
+
+-(void)cropImage
+{
+    
 }
 
 -(void)wtImagePickerVCDidCancal:(WTImagePickerVC*)vc

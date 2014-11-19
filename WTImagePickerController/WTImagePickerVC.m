@@ -36,7 +36,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    
+    screenWidth = CGRectGetWidth([UIScreen mainScreen].bounds);
     [self configDevice];
     [self configView];
     
@@ -75,7 +75,7 @@
     
     CALayer *viewLayer = self.view.layer;
     captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:inputSession];
-    captureVideoPreviewLayer.frame = CGRectMake(0, 138/2, 320, 852/2);
+    captureVideoPreviewLayer.frame = CGRectMake(0, 138/2, screenWidth, screenWidth);
     captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResize;
 
     [viewLayer addSublayer:captureVideoPreviewLayer];
@@ -88,12 +88,15 @@
     [inputSession addOutput:imageOutPut];
     [inputSession commitConfiguration];
 }
-
+static CGFloat screenWidth;
 -(void)configView
 {
+    
+    
+    
     //拍照
     captureButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    captureButton.frame = CGRectMake(0, 568-100, 320, 100);
+    captureButton.frame = CGRectMake(0, 568-100, screenWidth, 100);
     [captureButton setTitle:@"take photo"
             forState:UIControlStateNormal];
     [self.view addSubview:captureButton];
@@ -105,7 +108,7 @@
     
     //前后摄像头切换
     switchCameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    switchCameraButton.frame = CGRectMake(320-50, 0, 50, 50);
+    switchCameraButton.frame = CGRectMake(screenWidth-50, 0, 50, 50);
     switchCameraButton.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
     [switchCameraButton addTarget:self
                      action:@selector(switchBetweenDevices)
