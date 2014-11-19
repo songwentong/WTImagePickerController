@@ -41,6 +41,7 @@
 }
 - (void)stopVideoCapture  NS_AVAILABLE_IOS(4_0)
 {
+    
 }
 
 #pragma mark - WTImagePickerVCDelegate
@@ -56,20 +57,6 @@
     
     vc2.delegate = self;
     [self pushViewController:vc2 animated:YES];
-}
-
--(UIImage*)cropImage:(UIImage*)image
-{
-    UIImage *result = nil;
-    CGRect area = CGRectMake(0, 64, image.size.width, image.size.height-64);
-    CGImageRef returnImage = CGImageCreateWithImageInRect(image.CGImage, area);
-    result = [UIImage imageWithCGImage:returnImage scale:1.0 orientation:image.imageOrientation];
-    CFBridgingRelease(returnImage);
-    
-    
-    
-    
-    return result;
 }
 
 -(void)wtImagePickerVCDidCancal:(WTImagePickerVC*)vc

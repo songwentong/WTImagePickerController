@@ -17,6 +17,8 @@
     
 //    取消按钮
     UIButton *cancelButton;
+//    使用照片
+    UIButton *usePhotoButton;
 }
 @end
 
@@ -45,7 +47,7 @@ static CGFloat screenHeight;
     
     myScrollView.minimumZoomScale = 1.0;
     myScrollView.maximumZoomScale = 4.0;
-    myScrollView.backgroundColor = [UIColor redColor];
+//    myScrollView.backgroundColor = [UIColor redColor];
 //    myScrollView.layer.borderColor = [UIColor whiteColor].CGColor;
 //    myScrollView.layer.borderWidth = 1.0;
     myScrollView.clipsToBounds = NO;
@@ -90,13 +92,45 @@ static CGFloat screenHeight;
 
 -(void)configView
 {
+    
+    
+//    顶部蒙层
+    UIView *grayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, 100)];
+    grayView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    grayView.userInteractionEnabled = NO;
+    [self.view addSubview:grayView];
+    
+    
+//    底部蒙层
+    grayView = [[UIView alloc] initWithFrame:CGRectMake(0, 100+screenWidth, screenWidth, screenHeight)];
+    grayView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    grayView.userInteractionEnabled = NO;
+    [self.view addSubview:grayView];
+    
+    
+    
+    CGFloat buttonHeight = 60;
+    grayView = [[UIView alloc] initWithFrame:CGRectMake(0, screenHeight-buttonHeight, screenWidth, buttonHeight)];
+    grayView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    grayView.userInteractionEnabled = NO;
+    [self.view addSubview:grayView];
+    
+    
     cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    cancelButton.frame = CGRectMake(0, screenHeight-60, 100, 60);
-    [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
+    cancelButton.frame = CGRectMake(0, screenHeight-buttonHeight, 100, buttonHeight);
+    [cancelButton setTitle:@"重拍" forState:UIControlStateNormal];
     [self.view addSubview:cancelButton];
     [cancelButton addTarget:self
                      action:@selector(pop)
            forControlEvents:UIControlEventTouchUpInside];
+    
+    usePhotoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    usePhotoButton.frame = CGRectMake(screenWidth-100, screenHeight-buttonHeight, 100, buttonHeight);
+    [usePhotoButton setTitle:@"使用照片" forState:UIControlStateNormal];
+    [self.view addSubview:usePhotoButton];
+    [usePhotoButton addTarget:self
+                       action:@selector(done)
+             forControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void)pop
