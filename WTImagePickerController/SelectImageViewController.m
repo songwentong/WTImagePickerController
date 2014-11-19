@@ -54,7 +54,7 @@ static CGFloat screenWidth;
 
     CGFloat heightForImageView = (imageSize.height*screenWidth)/imageSize.width;
     imageViewToZoom.frame = CGRectMake(0, -64, screenWidth, heightForImageView);
-    myScrollView.contentSize = CGSizeMake(screenWidth, heightForImageView+64);
+    myScrollView.contentSize = CGSizeMake(screenWidth, heightForImageView-64);
     imageViewToZoom.userInteractionEnabled = NO;
     [myScrollView addSubview:imageViewToZoom];
     
@@ -124,6 +124,10 @@ static CGFloat screenWidth;
 }
 
 #pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView
+{
+//    NSLog(@"%s",__func__);
+}
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
     return imageViewToZoom;
