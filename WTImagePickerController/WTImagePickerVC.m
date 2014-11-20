@@ -111,7 +111,7 @@ static CGFloat screenWidth;
 {
     cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
-    cancelButton.frame = CGRectMake(0, screenHeight-60, 100, 60);
+    cancelButton.frame = CGRectMake(0, screenHeight-72, 100, 72);
     [self.view addSubview:cancelButton];
     [cancelButton addTarget:self
                      action:@selector(cancelPressed)
@@ -136,7 +136,7 @@ static CGFloat screenWidth;
     
     //前后摄像头切换
     switchCameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    switchCameraButton.frame = CGRectMake(screenWidth-50, 0, 50, 50);
+    switchCameraButton.frame = CGRectMake(screenWidth-72, 0, 50, 72);
 //    switchCameraButton.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
     [switchCameraButton setImage:[UIImage imageNamed:@"SwitchCamera"] forState:UIControlStateNormal];
     [switchCameraButton addTarget:self
@@ -152,7 +152,7 @@ static CGFloat screenWidth;
         [flashModeButton setTitle:flashModeTitles[i]
                          forState:UIControlStateNormal];
         CGFloat buttonWidth = 80;
-        flashModeButton.frame = CGRectMake(i*buttonWidth, 0, buttonWidth, 40);
+        flashModeButton.frame = CGRectMake(i*buttonWidth, 0, buttonWidth, 72);
         [flashModeButton addTarget:self
                             action:@selector(flashModeButtonPressed:)
                   forControlEvents:UIControlEventTouchUpInside];
